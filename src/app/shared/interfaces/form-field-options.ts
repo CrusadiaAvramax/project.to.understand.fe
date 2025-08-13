@@ -1,6 +1,6 @@
 import {FormFieldOption} from './form-field-control';
+import {FieldType} from './field-type';
 
-export type FieldType = 'text' | 'email' | 'password' | 'number' | 'select';
 
 export interface FormFieldConfig {
   name: string;

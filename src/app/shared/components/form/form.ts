@@ -1,16 +1,19 @@
 import {Component, inject, input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormFieldConfig} from '../../interfaces/form-field-options';
+
 
 @Component({
   selector: 'app-form',
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './form.html',
   styleUrl: './form.scss'
 })
 export class Form implements OnInit {
 
-  config = input<FormFieldConfig[]>();
+  config = input.required<FormFieldConfig[]>();
 
   form!: FormGroup<{ [key: string]: FormControl<string | number> }>
 
@@ -34,5 +37,13 @@ export class Form implements OnInit {
     });
 
     this.form = new FormGroup(controls);
+  }
+
+  onSubmit(): void {
+    if (this.form.valid) {
+      console.log('Dati del form:', this.form.value);
+    } else {
+      console.log('Form non valido');
+    }
   }
 }

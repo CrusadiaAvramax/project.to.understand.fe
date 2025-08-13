@@ -1,6 +1,6 @@
 // src/app/header/header.component.ts
-import {Component} from '@angular/core';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +11,14 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 })
 export class Header {
 
+  private router = inject(Router);
+
   onLogin(): void {
     console.log("SONO L'HEADER");
   }
 
   onSignUp(): void {
-    console.log("SONO L'HEADER");
+    this.router.navigate(['sign-up'])
+      .then(r => console.log(r));
   }
 }

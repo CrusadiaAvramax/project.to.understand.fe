@@ -1,1 +1,39 @@
-<p>form works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  @for (field of config(); track field.name) {
+    <div>
+
+      <label [for]="field.name">{{ field.label }}</label>
+
+      @if (field.type !== 'select') {
+        <input
+          [id]="field.name"
+          [type]="field.type"
+          [formControlName]="field.name"
+          [placeholder]="field.placeholder"
+          class="form-control"
+        />
+      } @else {
+        <select
+          [id]="field.name"
+          [formControlName]="field.name"
+          class="form-control"
+        >
+          <option value="" disabled selected>{{ field.placeholder || 'Seleziona...' }}</option>
+          @for (option of field.options; track option.label) {
+            <option [value]="option.value">
+              {{ option.label }}
+            </option>
+          }
+        </select>
+      }
+      @if (form.get(field.name)?.invalid && form.get(field.name)?.touched) {
+        <div class="error">
+          {{ field.label }} è obbligatorio.
+        </div>
+      }
+
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Invia</button>
+  }
+</form>
