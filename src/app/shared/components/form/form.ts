@@ -1,6 +1,7 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, OnInit, output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormFieldConfig} from '../../interfaces/form-field-options';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,10 +15,12 @@ import {FormFieldConfig} from '../../interfaces/form-field-options';
 export class Form implements OnInit {
 
   config = input.required<FormFieldConfig[]>();
+  formSubmitted = output<FormGroup>();
 
   form!: FormGroup<{ [key: string]: FormControl<string | number> }>
 
   formBuilder = inject(FormBuilder);
+  snackBar = inject(MatSnackBar)
 
   ngOnInit() {
     this.buildForm();
@@ -41,9 +44,14 @@ export class Form implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      console.log('Dati del form:', this.form.value);
+      this.formSubmitted.emit(this.form);
     } else {
-      console.log('Form non valido');
+      this.snackBar.open('Compila correttamente tutti i campi.', 'Chiudi', {
+        duration: 5000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        panelClass: ['snack-error']
+      });
     }
   }
 }

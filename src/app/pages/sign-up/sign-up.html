@@ -1,1 +1,5 @@
-<app-form [config]="config()"></app-form>
+<app-form
+  (formSubmitted)="onFormSubmitted($event)"
+  [config]="config()"
+>
+</app-form>

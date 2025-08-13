@@ -1,6 +1,8 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
+import {FormGroup} from '@angular/forms';
+import {Utenti} from '../../core/services/utenti';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,12 +15,17 @@ import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 export class SignUp {
 
   utentiConfig: FormFieldConfig[] = [
-
+    {
+      name: 'nome', label: "Nome", type: 'text', required: false, placeholder: 'Inserire nome'
+    },
+    {
+      name: 'cognome', label: "Cognome", type: 'text', required: false, placeholder: 'Inserire cognome'
+    },
     {
       name: 'email', label: "Email", type: 'email', required: true, placeholder: 'Inserire email'
     },
     {
-      name: 'password', label: "Passowrd", type: 'password', required: true, placeholder: 'Inserire password'
+      name: 'password', label: "Password", type: 'password', required: true, placeholder: 'Inserire password'
     },
     {
       name: 'ruolo', label: "Ruoli", type: 'select', required: true, placeholder: 'Inserire i ruoli', options: [
@@ -29,6 +36,11 @@ export class SignUp {
   ]
 
   config = signal(this.utentiConfig);
+  userService = inject(Utenti);
 
 
+  onFormSubmitted($event: FormGroup) {
+    console.log($event.value)
+    this.userService.registerUser($event.value);
+  }
 }
