@@ -9,4 +9,5 @@ export interface FormFieldConfig {
   placeholder?: string;
   required?: boolean;
   options?: FormFieldOption[]; // solo per select
+  multiselect?: boolean;
 }

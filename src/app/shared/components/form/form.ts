@@ -2,12 +2,14 @@ import {Component, inject, input, OnInit, output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormFieldConfig} from '../../interfaces/form-field-options';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {NgSelectComponent} from '@ng-select/ng-select';
 
 
 @Component({
   selector: 'app-form',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectComponent
   ],
   templateUrl: './form.html',
   styleUrl: './form.scss'

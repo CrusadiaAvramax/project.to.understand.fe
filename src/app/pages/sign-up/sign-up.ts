@@ -28,10 +28,10 @@ export class SignUp {
       name: 'password', label: "Password", type: 'password', required: true, placeholder: 'Inserire password'
     },
     {
-      name: 'ruolo', label: "Ruoli", type: 'select', required: true, placeholder: 'Inserire i ruoli', options: [
+      name: 'roles', label: "Ruoli", type: 'select', required: true, placeholder: 'Inserire i ruoli', options: [
         {label: "Admin", value: "admin"},
         {label: "User", value: "user"},
-      ]
+      ], multiselect: true
     },
   ]
 
@@ -41,6 +41,12 @@ export class SignUp {
 
   onFormSubmitted($event: FormGroup) {
     console.log($event.value)
-    this.userService.registerUser($event.value);
+    this.userService.registerUser($event.value)
+      .subscribe({
+        next: () => console.log("Registrazione ok"),
+        error: error => {
+          console.log(error)
+        }
+      })
   }
 }

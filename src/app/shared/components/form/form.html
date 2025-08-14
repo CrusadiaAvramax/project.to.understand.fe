@@ -20,16 +20,16 @@
             class="form-control"
           />
         } @else {
-          <select
-            [id]="field.name"
+          <ng-select
+            [items]="field.options"
+            [bindValue]="'value'"
+            [bindLabel]="'label'"
+            [multiple]="true"
+            [placeholder]="'Select options'"
+            [clearable]="false"
             [formControlName]="field.name"
-            class="form-control"
-          >
-            <option value="" disabled selected>{{ field.placeholder || 'Seleziona...' }}</option>
-            @for (option of field.options; track option.label) {
-              <option [value]="option.value">{{ option.label }}</option>
-            }
-          </select>
+            class="form-control">
+          </ng-select>
         }
 
         <!-- Messaggio di errore -->
