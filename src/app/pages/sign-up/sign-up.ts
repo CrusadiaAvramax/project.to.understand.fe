@@ -16,22 +16,35 @@ export class SignUp {
 
   utentiConfig: FormFieldConfig[] = [
     {
-      name: 'nome', label: "Nome", type: 'text', required: false, placeholder: 'Inserire nome'
+      name: 'email',
+      label: "Email",
+      type: 'email',
+      required: true,
+      placeholder: 'Inserire email'
     },
     {
-      name: 'cognome', label: "Cognome", type: 'text', required: false, placeholder: 'Inserire cognome'
+      name: 'password',
+      label: "Password",
+      type: 'password',
+      required: true,
+      placeholder: 'Inserire password'
     },
     {
-      name: 'email', label: "Email", type: 'email', required: true, placeholder: 'Inserire email'
-    },
-    {
-      name: 'password', label: "Password", type: 'password', required: true, placeholder: 'Inserire password'
-    },
-    {
-      name: 'roles', label: "Ruoli", type: 'select', required: true, placeholder: 'Inserire i ruoli', options: [
-        {label: "Admin", value: "admin"},
-        {label: "User", value: "user"},
-      ], multiselect: true
+      name: 'role',
+      label: "Ruoli",
+      type: 'select',
+      required: true,
+      placeholder: 'Inserire i ruoli',
+      options: [
+        {
+          label: "Admin",
+          value: "admin"
+        },
+        {
+          label: "User",
+          value: "user"
+        },
+      ]
     },
   ]
 

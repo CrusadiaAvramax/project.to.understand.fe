@@ -17,6 +17,7 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 export class Form implements OnInit {
 
   config = input.required<FormFieldConfig[]>();
+  nameSubmitButton = input.required<string>()
   formSubmitted = output<FormGroup>();
 
   form!: FormGroup<{ [key: string]: FormControl<string | number> }>
