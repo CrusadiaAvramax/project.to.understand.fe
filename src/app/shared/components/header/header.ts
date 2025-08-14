@@ -14,7 +14,8 @@ export class Header {
   private router = inject(Router);
 
   onLogin(): void {
-    console.log("SONO L'HEADER");
+    this.router.navigate(['login'])
+      .then(r => console.log(r));
   }
 
   onSignUp(): void {

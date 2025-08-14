@@ -16,6 +16,13 @@ export class SignUp {
 
   utentiConfig: FormFieldConfig[] = [
     {
+      name: 'username',
+      label: "Username",
+      type: 'text',
+      required: true,
+      placeholder: 'Inserire username'
+    },
+    {
       name: 'email',
       label: "Email",
       type: 'email',

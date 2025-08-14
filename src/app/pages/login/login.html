@@ -1,0 +1,16 @@
+<app-toggle-switch
+  (selectedIndexChange)="onChangeIndex($event)"
+  [options]="options"
+>
+</app-toggle-switch>
+<div class="mt-4">
+  @if (optionActual() === 'Credenziali E-Commerce') {
+    <app-form
+      (formSubmitted)="onFormSubmitted($event)"
+      [config]="config()"
+      [nameSubmitButton]="'Login'"
+    >
+    </app-form>
+
+  }
+</div>
