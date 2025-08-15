@@ -1,6 +1,7 @@
 // src/app/header/header.component.ts
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {Auth} from '../../../core/services/auth';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +13,7 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 export class Header {
 
   private router = inject(Router);
-  private tokenKey = 'authToken';
-  isLoggedIn = signal<boolean>(!!localStorage.getItem(this.tokenKey));
+  protected authService = inject(Auth);
 
   onLogin(): void {
     this.router.navigate(['login'])
@@ -23,5 +23,9 @@ export class Header {
   onSignUp(): void {
     this.router.navigate(['sign-up'])
       .then(r => console.log(r));
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

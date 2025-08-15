@@ -6,6 +6,7 @@ import {Utenti} from '../../core/services/utenti';
 import {FormGroup} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {Auth} from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ export class Login {
   ]
   config = signal(this.loginConfig);
   userService = inject(Utenti);
+  authService = inject(Auth);
   toastrService = inject(ToastrService)
   router = inject(Router)
 
@@ -54,7 +56,8 @@ export class Login {
           console.log('Login riuscito, token: ', response.token);
           const token = response.token;
           if (token) {
-            localStorage.setItem('authToken', token);
+            localStorage.setItem('authToken', token)
+            this.authService.setToken(token)
           }
           this.toastrService.success('Login effettuato con successo', 'Successo!');
           this.router.navigate(['']).then(r => {
