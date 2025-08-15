@@ -20,6 +20,15 @@
       <div class="d-flex gap-2">
         <button (click)="onSignUp()" class="btn btn-outline-light">SignUp</button>
         <button (click)="onLogin()" class="btn btn-light">Login</button>
+        @if (isLoggedIn()) {
+          <button class="btn btn-primary btn-sm" routerLink="/cart">
+            🛒 Carrello
+          </button>
+        }
+      </div>
+
+      <div class="d-flex gap-2">
+
       </div>
     </div>
   </div>

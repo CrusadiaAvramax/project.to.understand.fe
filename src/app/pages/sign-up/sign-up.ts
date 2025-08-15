@@ -3,17 +3,19 @@ import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
 import {Utenti} from '../../core/services/utenti';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
   imports: [
-    Form
+    Form,
   ],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss'
 })
 export class SignUp {
 
+  toastrService = inject(ToastrService)
   utentiConfig: FormFieldConfig[] = [
     {
       name: 'username',
@@ -60,13 +62,16 @@ export class SignUp {
 
 
   onFormSubmitted($event: FormGroup) {
-    console.log($event.value)
     this.userService.registerUser($event.value)
       .subscribe({
-        next: () => console.log("Registrazione ok"),
+        next: () => {
+          console.log("Registrazione ok");
+          this.toastrService.success('Registrazione avvenuta con successo!', 'Successo!');
+        },
         error: error => {
-          console.log(error)
+          this.toastrService.error('Errore durante la registrazione.', 'Errore');
+          console.error(error);
         }
-      })
+      });
   }
 }

@@ -1,5 +1,5 @@
 // src/app/header/header.component.ts
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
@@ -12,6 +12,8 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 export class Header {
 
   private router = inject(Router);
+  private tokenKey = 'authToken';
+  isLoggedIn = signal<boolean>(!!localStorage.getItem(this.tokenKey));
 
   onLogin(): void {
     this.router.navigate(['login'])

@@ -4,6 +4,8 @@ import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {Utenti} from '../../core/services/utenti';
 import {FormGroup} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +38,9 @@ export class Login {
   ]
   config = signal(this.loginConfig);
   userService = inject(Utenti);
+  toastrService = inject(ToastrService)
+  router = inject(Router)
+
 
   onChangeIndex(index: number) {
     this.optionActual.set(this.options[index]);
@@ -45,9 +50,25 @@ export class Login {
     console.log($event.value)
     this.userService.loginUser($event.value)
       .subscribe({
-        next: () => console.log("Login ok"),
+        next: (response) => {
+          console.log('Login riuscito, token: ', response.token);
+          const token = response.token;
+          if (token) {
+            localStorage.setItem('authToken', token);
+          }
+          this.toastrService.success('Login effettuato con successo', 'Successo!');
+          this.router.navigate(['']).then(r => {
+            if (r) {
+              console.log('Navigazione riuscita');
+              return;
+            }
+            console.log('Navigazione non riuscita');
+          });
+
+        },
         error: error => {
-          console.log(error)
+          this.toastrService.error('Errore durante la fase di login. Riprovare.', 'Errore');
+          console.error(error);
         }
       })
   }
