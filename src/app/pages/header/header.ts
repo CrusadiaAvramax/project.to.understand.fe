@@ -23,23 +23,15 @@ export class Header {
 
     // Assign classic @Input properties for the modal component
     modalRef.componentInstance.component = Login;
-    modalRef.componentInstance.title = 'Login Utente';
+    modalRef.componentInstance.title = 'Login';
   }
 
   onSignUp(): void {
-    this.modalService.open(SignUp, {
+    const modalRef = this.modalService.open(Modal, {centered: true, size: 'md'});
 
-      ariaLabelledBy: 'Sign up',
-      animation: true
-    })
-      .result.then(
-      () => {
-        console.log(`Modal closed with`);
-      },
-      () => {
-        console.log(`Modal dismissed`);
-      }
-    );
+    // Assign classic @Input properties for the modal component
+    modalRef.componentInstance.component = SignUp;
+    modalRef.componentInstance.title = 'Sign up';
   }
 
   onLogout() {
