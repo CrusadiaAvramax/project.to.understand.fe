@@ -1,19 +1,19 @@
 <div class="toggle-container">
+  <!-- Background animato -->
   <div
     [style.transform]="'translateX(' + (100 * selectedIndex()) + '%)'"
     [style.width.%]="100 / options().length"
     class="toggle-background">
   </div>
 
-  @for (option of options();
-    track option;
-    let i = $index) {
+  <!-- Opzioni -->
+  @for (option of options(); track option; let i = $index) {
     <div
       class="toggle-option"
       [class.active]="selectedIndex() === i"
       (click)="selectOption(i)"
       [style.width.%]="100 / options().length">
-      {{ option }}
+      <span class="toggle-text">{{ option }}</span>
     </div>
   }
 </div>

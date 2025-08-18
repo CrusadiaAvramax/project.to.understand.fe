@@ -1,10 +1,11 @@
+<div class="mt-2 m-lg-2 mr-2 ">
 <app-toggle-switch
   (selectedIndexChange)="onChangeIndex($event)"
   [options]="options"
 >
 </app-toggle-switch>
-<div class="mt-4">
-  @if (optionActual() === 'Credenziali E-Commerce') {
+  <div class="mt-4 mb-4">
+    @if (optionActual() === 'E-Commerce Login') {
     <app-form
       (formSubmitted)="onFormSubmitted($event)"
       [config]="config()"
@@ -13,4 +14,5 @@
     </app-form>
 
   }
+</div>
 </div>

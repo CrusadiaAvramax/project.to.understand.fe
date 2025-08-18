@@ -43,7 +43,17 @@
     }
 
     <div class="mt-3">
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end gap-2">
+        @if (activeModal) {
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="onCloseModal()"
+          >
+            Chiudi
+          </button>
+        }
+
         <button
           [disabled]="form.invalid"
           class="btn btn-primary"

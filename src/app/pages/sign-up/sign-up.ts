@@ -2,8 +2,10 @@ import {Component, inject, signal} from '@angular/core';
 import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
-import {Utenti} from '../../core/services/utenti';
+import {User} from '../../core/services/user';
 import {ToastrService} from 'ngx-toastr';
+import {Auth} from '../../core/services/auth';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,8 +17,10 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class SignUp {
 
-  toastrService = inject(ToastrService)
-  utentiConfig: FormFieldConfig[] = [
+  toastrService = inject(ToastrService);
+  authService = inject(Auth);
+
+  usersConfig: FormFieldConfig[] = [
     {
       name: 'username',
       label: "Username",
@@ -55,17 +59,19 @@ export class SignUp {
         },
       ]
     },
-  ]
+  ];
+  config = signal(this.usersConfig);
 
-  config = signal(this.utentiConfig);
-  userService = inject(Utenti);
+  activeModal = inject(NgbActiveModal);
+
 
 
   onFormSubmitted($event: FormGroup) {
-    this.userService.registerUser($event.value)
+    this.authService.registerUser($event.value)
       .subscribe({
         next: () => {
           console.log("Registrazione ok");
+          this.activeModal.close();
           this.toastrService.success('Registrazione avvenuta con successo!', 'Successo!');
         },
         error: error => {
