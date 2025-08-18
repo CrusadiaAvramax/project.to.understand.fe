@@ -4,6 +4,7 @@ import {RegisterUserRequest} from '../interfaces/register-user-request';
 import {catchError, Observable, throwError} from 'rxjs';
 import {LoginUserRequest} from '../interfaces/login-user-request';
 import {LoginUserResponse} from '../interfaces/login-user-response';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import {LoginUserResponse} from '../interfaces/login-user-response';
 export class Auth {
 
   isLoggedIn = signal<boolean>(false);
+  private toastrService = inject(ToastrService);
   private tokenKey = 'authToken';
 
   setToken(token: string) {
@@ -21,6 +23,7 @@ export class Auth {
   logout() {
     localStorage.removeItem(this.tokenKey);
     this.isLoggedIn.set(false);
+    this.toastrService.success('Logout effettuato con successo', 'Successo!');
   }
 
   httpClient = inject(HttpClient);

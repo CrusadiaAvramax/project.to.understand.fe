@@ -3,7 +3,6 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {FormFieldConfig} from '../../interfaces/form-field-options';
 
 import {NgSelectComponent} from '@ng-select/ng-select';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -24,8 +23,6 @@ export class Form implements OnInit {
   form!: FormGroup<{ [key: string]: FormControl<string | number> }>
 
   formBuilder = inject(FormBuilder);
-  activeModal = inject(NgbActiveModal)
-
 
   ngOnInit() {
     this.buildForm();
@@ -53,7 +50,4 @@ export class Form implements OnInit {
     }
   }
 
-  onCloseModal() {
-    this.activeModal.close();
-  }
 }

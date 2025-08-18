@@ -9,6 +9,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sign-up',
+  standalone: true,
   imports: [
     Form,
   ],

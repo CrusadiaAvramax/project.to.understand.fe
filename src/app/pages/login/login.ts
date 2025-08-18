@@ -1,5 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
-import {ToggleSwitch} from '../../shared/components/toggle-switch/toggle-switch';
+import {ToggleSwitchComponent} from '../../shared/components/toggle-switch/toggle-switch';
 import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
@@ -10,8 +10,9 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
-    ToggleSwitch,
+    ToggleSwitchComponent,
     Form
   ],
   templateUrl: './login.html',
@@ -19,8 +20,12 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class Login {
 
-  options = ['E-Commerce Login', 'Spid', 'Cie']
-  optionActual = signal(this.options[0])
+  options = [
+    {label: 'E-Commerce Login'},
+    {label: 'Spid'},
+    {label: 'Cie'}
+  ]
+  optionActual = signal(this.options[0].label)
   loginConfig: FormFieldConfig[] = [
     {
       name: 'email',
@@ -45,7 +50,7 @@ export class Login {
 
 
   onChangeIndex(index: number) {
-    this.optionActual.set(this.options[index]);
+    this.optionActual.set(this.options[index]?.label ?? this.options[0].label);
   }
 
   onFormSubmitted($event: FormGroup) {

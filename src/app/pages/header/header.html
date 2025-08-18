@@ -1,0 +1,54 @@
+<header class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <span>E-Commerce</span>
+    </a>
+
+    <!-- Menu di navigazione -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Pulsanti a destra -->
+      <div class="d-flex gap-2 align-items-center">
+
+        <!-- Carrello: bottone bianco con testo primario -->
+        <button class="btn btn-light" routerLink="/cart">
+          🛒 Carrello
+        </button>
+
+        <!-- Dropdown Area Riservata -->
+        <div class="d-inline-block" ngbDropdown>
+          <button
+            class="btn btn-light d-flex align-items-center gap-2"
+            ngbDropdownToggle
+            type="button"
+          >
+            <i class="bi bi-person-circle"></i>
+            <span>Area Riservata</span>
+          </button>
+
+          <div class="dropdown-menu-end" ngbDropdownMenu>
+            @if (authService.isLoggedIn()) {
+              <a class="dropdown-item" routerLink="/profile">👤 Il mio profilo</a>
+              <button class="dropdown-item" (click)="onLogout()">🔐 Logout</button>
+            } @else {
+              <button class="dropdown-item" (click)="onLogin()">🔐 Login</button>
+              <button class="dropdown-item" (click)="onSignUp()">✍️ Registrati</button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
