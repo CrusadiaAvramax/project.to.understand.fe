@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
-import {Auth} from '../../core/services/auth';
+import {Auth} from '../../core/services/auth/auth';
 import {SignUp} from '../sign-up/sign-up';
 import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Login} from '../login/login';
@@ -28,7 +28,7 @@ export class Header {
   }
 
   onSignUp(): void {
-    const modalRef = this.modalService.open(Modal, {centered: true, size: 'md'});
+    const modalRef = this.modalService.open(Modal, {centered: true, size: 'lg'});
 
     // Assign classic @Input properties for the modal component
     modalRef.componentInstance.component = SignUp;

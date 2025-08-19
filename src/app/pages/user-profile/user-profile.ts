@@ -1,7 +1,9 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {Form} from '../../shared/components/form/form';
 import {FormGroup} from '@angular/forms';
+import {User} from '../../core/services/user/user';
+import {Auth} from '../../core/services/auth/auth';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,7 +13,7 @@ import {FormGroup} from '@angular/forms';
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss'
 })
-export class UserProfile {
+export class UserProfile implements OnInit {
 
   usersConfig: FormFieldConfig[] = [
     {
@@ -58,6 +60,37 @@ export class UserProfile {
     },
   ];
   config = signal(this.usersConfig);
+  userService = inject(User);
+  authService = inject(Auth);
+
+  getUserDetails() {
+    const token = this.authService.token();
+    if (token != null) {
+      this.userService.getUser(token).subscribe((user) => {
+        const updatedConfig = this.usersConfig.map((field) => {
+          switch (field.name) {
+            case 'username':
+              return {...field, value: user.username};
+            case 'email':
+              return {...field, value: user.email};
+            case 'password':
+              return {...field, value: ''}; // non precompilare per sicurezza
+            case 'role':
+              return {...field, value: user.role}; // Assumendo user.role sia 'admin' o 'user'
+            default:
+              return field;
+          }
+        });
+
+        this.config.set(updatedConfig);
+      });
+    }
+  }
+
+  ngOnInit(): void {
+    this.getUserDetails();
+  }
+
 
 
   onFormSubmitted($event: FormGroup) {

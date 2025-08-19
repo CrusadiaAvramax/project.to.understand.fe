@@ -4,14 +4,16 @@ import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {Auth} from '../../core/services/auth';
+import {Auth} from '../../core/services/auth/auth';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Form} from '../../shared/components/form/form';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    ToggleSwitchComponent
+    ToggleSwitchComponent,
+    Form
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
@@ -64,7 +66,6 @@ export class Login {
             this.activeModal.close();
             localStorage.setItem('authToken', token)
             this.authService.setToken(token)
-            this.toastrService.success('Login effettuato con successo', 'Successo!');
           }
         },
         error: error => {

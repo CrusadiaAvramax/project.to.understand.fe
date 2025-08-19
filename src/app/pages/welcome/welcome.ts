@@ -26,7 +26,7 @@ export class Welcome {
   }
 
   navigateToShop() {
-    const modalRef = this.modalService.open(Modal, {centered: true, size: 'md'});
+    const modalRef = this.modalService.open(Modal, {centered: true, size: 'lg'});
 
     // Assign classic @Input properties for the modal component
     modalRef.componentInstance.component = ToggleSwitchComponent;

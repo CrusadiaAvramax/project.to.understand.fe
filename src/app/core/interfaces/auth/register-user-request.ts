@@ -1,11 +1,9 @@
 export interface RegisterUserRequest {
 
   id: number;
+  username: string;
   password: string;
-  nome: string;
-  cognome: string;
-  roles: string[];
+  role: string;
   email: string;
-  bio: string;
 
 }

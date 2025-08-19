@@ -1,15 +1,17 @@
 import {Component, inject, signal} from '@angular/core';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
-import {User} from '../../core/services/user';
 import {ToastrService} from 'ngx-toastr';
-import {Auth} from '../../core/services/auth';
+import {Auth} from '../../core/services/auth/auth';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Form} from '../../shared/components/form/form';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [],
+  imports: [
+    Form
+  ],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss'
 })
