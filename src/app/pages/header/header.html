@@ -40,7 +40,7 @@
 
           <div class="dropdown-menu-end" ngbDropdownMenu>
             @if (authService.isLoggedIn()) {
-              <a class="dropdown-item" routerLink="/profile">👤 Il mio profilo</a>
+              <button class="dropdown-item" (click)="userProfile()">👤 Il mio profilo</button>
               <button class="dropdown-item" (click)="onLogout()">🔐 Logout</button>
             } @else {
               <button class="dropdown-item" (click)="onLogin()">🔐 Login</button>

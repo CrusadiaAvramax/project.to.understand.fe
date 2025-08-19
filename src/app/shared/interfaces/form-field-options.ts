@@ -1,13 +1,17 @@
 import {FormFieldOption} from './form-field-control';
-import {FieldType} from './field-type';
-
 
 export interface FormFieldConfig {
   name: string;
   label: string;
-  type: FieldType;
+  type: 'text' | 'email' | 'password' | 'number' | 'select' | 'checkbox';
+  value?: string | number | boolean;
+  required: boolean;
+  readonly?: boolean;
+  disabled: boolean;
   placeholder?: string;
-  required?: boolean;
-  options?: FormFieldOption[]; // solo per select
+  email?: boolean; // per attivare Validators.email
+  minLength?: number;
+  maxLength?: number;
+  options?: FormFieldOption[]; // per ng-select
   multiselect?: boolean;
 }

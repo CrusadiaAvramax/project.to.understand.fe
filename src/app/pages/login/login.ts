@@ -1,6 +1,5 @@
 import {Component, inject, signal} from '@angular/core';
 import {ToggleSwitchComponent} from '../../shared/components/toggle-switch/toggle-switch';
-import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
@@ -12,8 +11,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-login',
   standalone: true,
   imports: [
-    ToggleSwitchComponent,
-    Form
+    ToggleSwitchComponent
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
@@ -32,14 +30,16 @@ export class Login {
       label: "Email",
       type: 'email',
       required: true,
-      placeholder: 'Inserire email'
+      placeholder: 'Inserire email',
+      disabled: false
     },
     {
       name: 'password',
       label: "Password",
       type: 'password',
       required: true,
-      placeholder: 'Inserire password'
+      placeholder: 'Inserire password',
+      disabled: false
     }
   ]
   config = signal(this.loginConfig);

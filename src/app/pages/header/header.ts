@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {Auth} from '../../core/services/auth';
 import {SignUp} from '../sign-up/sign-up';
 import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,7 @@ export class Header {
 
   protected authService = inject(Auth);
   private modalService = inject(NgbModal)
+  private router = inject(Router);
 
   onLogin(): void {
     const modalRef = this.modalService.open(Modal, {centered: true, size: 'md'});
@@ -38,4 +39,7 @@ export class Header {
     this.authService.logout();
   }
 
+  userProfile() {
+    this.router.navigate(['/user-profile']).then(r => console.log(r));
+  }
 }

@@ -1,1 +1,11 @@
-<p>user-profile works!</p>
+<div class="mt-2 mb-2 m-lg-2">
+  <div class="mt-2">
+    <app-form
+      (formSubmitted)="onFormSubmitted($event)"
+      [config]="config()"
+      [formDisabled]="true"
+      [nameSubmitButton]="'Modifica'"
+    >
+    </app-form>
+  </div>
+</div>

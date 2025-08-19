@@ -1,5 +1,4 @@
 import {Component, inject, signal} from '@angular/core';
-import {Form} from '../../shared/components/form/form';
 import {FormFieldConfig} from '../../shared/interfaces/form-field-options';
 import {FormGroup} from '@angular/forms';
 import {User} from '../../core/services/user';
@@ -10,9 +9,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [
-    Form,
-  ],
+  imports: [],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss'
 })
@@ -27,21 +24,24 @@ export class SignUp {
       label: "Username",
       type: 'text',
       required: true,
-      placeholder: 'Inserire username'
+      placeholder: 'Inserire username',
+      disabled: false
     },
     {
       name: 'email',
       label: "Email",
       type: 'email',
       required: true,
-      placeholder: 'Inserire email'
+      placeholder: 'Inserire email',
+      disabled: false
     },
     {
       name: 'password',
       label: "Password",
       type: 'password',
       required: true,
-      placeholder: 'Inserire password'
+      placeholder: 'Inserire password',
+      disabled: false
     },
     {
       name: 'role',
@@ -58,7 +58,8 @@ export class SignUp {
           label: "User",
           value: "user"
         },
-      ]
+      ],
+      disabled: false
     },
   ];
   config = signal(this.usersConfig);
