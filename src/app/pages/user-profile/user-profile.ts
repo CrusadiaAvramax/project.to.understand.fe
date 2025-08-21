@@ -66,7 +66,8 @@ export class UserProfile implements OnInit {
   getUserDetails() {
     const token = this.authService.token();
     if (token != null) {
-      this.userService.getUser(token).subscribe((user) => {
+      let decodedToken = this.authService.decodeToken(token);
+      this.userService.getUser(decodedToken.email).subscribe((user) => {
         const updatedConfig = this.usersConfig.map((field) => {
           switch (field.name) {
             case 'username':

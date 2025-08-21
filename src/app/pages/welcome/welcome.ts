@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 
 import {Login} from '../login/login';
 import {SignUp} from '../sign-up/sign-up';
@@ -14,16 +14,11 @@ import {ToggleSwitchComponent} from '../../shared/components/toggle-switch/toggl
 })
 export class Welcome {
 
-  optionActual = signal<string>('Login')
   modalService = inject(NgbModal)
   toggleOptions = [
     {label: 'Login', component: Login},
     {label: 'Sign up', component: SignUp}
   ];
-
-  onChangeIndex(index: number) {
-    this.optionActual.set(this.toggleOptions[index]?.label ?? 'Login');
-  }
 
   navigateToShop() {
     const modalRef = this.modalService.open(Modal, {centered: true, size: 'lg'});

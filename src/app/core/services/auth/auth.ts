@@ -19,6 +19,16 @@ export class Auth {
     this.monitorTokenWithEffect();
   }
 
+  decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload);
+      return JSON.parse(decodedPayload);
+    } catch (error) {
+      return null;
+    }
+  }
+
   setToken(token: string) {
     this.token.set(token);
     this.toastrService.success('Login effettuato con successo', 'Successo!');

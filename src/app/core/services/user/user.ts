@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {catchError, Observable, throwError} from 'rxjs';
 import {UserType} from '../../interfaces/user/user-type';
 
 @Injectable({
@@ -8,17 +8,30 @@ import {UserType} from '../../interfaces/user/user-type';
 })
 export class User {
 
-  httpClient = inject(HttpClient);
+  private httpClient = inject(HttpClient);
 
-  getUser(token: string) {
+  private apiUrl = 'http://localhost:8080/api/user';
+
+  getUser(email: string): Observable<UserType> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Content-Type': 'application/json'
     });
-    return this.httpClient.get<UserType>('http://localhost:8080/api/user', {headers}).pipe(
-      catchError(error => {
-        console.error('Errore:', error);
-        return throwError(() => new Error('Unable to find user'));
+
+    // Costruisci l'URL con il parametro query
+    const url = `${this.apiUrl}?email=${encodeURIComponent(email)}`;
+
+    return this.httpClient.get<UserType>(url, {headers}).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Errore nella richiesta HTTP:', error);
+        let errorMessage = 'Unable to find user';
+        if (error.error instanceof ErrorEvent) {
+          // Errore lato client
+          errorMessage = `Errore: ${error.error.message}`;
+        } else {
+          // Errore lato server
+          errorMessage = `Errore ${error.status}: ${error.error?.message || error.message}`;
+        }
+        return throwError(() => new Error(errorMessage));
       })
     );
   }
